@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+client/.next/
+client/out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Keep .env.example
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Uploads (keep folder structure)
+server/uploads/**/*
+!server/uploads/**/.gitkeep
+
+# Package locks (optional - uncomment if you want to ignore)
+# package-lock.json
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp

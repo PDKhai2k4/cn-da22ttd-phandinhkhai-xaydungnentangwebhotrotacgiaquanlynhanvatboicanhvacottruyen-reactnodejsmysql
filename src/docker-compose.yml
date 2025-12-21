@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: ql_truyen_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ql_truyen
+      MYSQL_USER: ${DB_USER:-ql_truyen_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-ql_truyen_pass}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ql_truyen_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API (Node.js)
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ql_truyen_server
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-ql_truyen_user}
+      DB_PASSWORD: ${DB_PASSWORD:-ql_truyen_pass}
+      DB_NAME: ql_truyen
+      JWT_SECRET: ${JWT_SECRET:-your_jwt_secret_key_change_in_production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      # Email SMTP
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server/uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - ql_truyen_network
+
+  # Frontend (Next.js)
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:5000
+    container_name: ql_truyen_client
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - ql_truyen_network
+
+volumes:
+  mysql_data:
+
+networks:
+  ql_truyen_network:
+    driver: bridge

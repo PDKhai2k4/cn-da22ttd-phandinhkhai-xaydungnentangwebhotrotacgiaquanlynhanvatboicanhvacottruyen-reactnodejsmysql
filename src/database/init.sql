@@ -244,11 +244,11 @@ ALTER TABLE projects ADD FULLTEXT INDEX ft_projects_search (title, description);
 
 -- Tạo tài khoản Admin mặc định
 -- Username: admin
--- Email: admin@qltruyen.com  
+-- Email: admin@gmail.com  
 -- Password: Admin@123 (đã hash bằng bcrypt với 12 rounds)
 -- ⚠️ QUAN TRỌNG: Hãy đổi mật khẩu ngay sau khi đăng nhập lần đầu!
 INSERT INTO users (username, email, password, full_name, role, is_active, email_verified) VALUES
-('admin', 'admin@qltruyen.com', '$2a$12$aRVNaMl.XwFLtm1IGgk9XO77mVme1Rn.s18QN6NoVhhcI1Y0nRFQW', 'Administrator', 'admin', TRUE, TRUE);
+('admin', 'admin@gmail.com', '$2a$12$aRVNaMl.XwFLtm1IGgk9XO77mVme1Rn.s18QN6NoVhhcI1Y0nRFQW', 'Administrator', 'admin', TRUE, TRUE);
 
 -- Tạo settings mặc định cho admin
 INSERT INTO user_settings (user_id, theme, language, notifications_enabled) VALUES
@@ -257,14 +257,14 @@ INSERT INTO user_settings (user_id, theme, language, notifications_enabled) VALU
 -- Cài đặt hệ thống mặc định
 INSERT INTO system_settings (setting_key, setting_value, description, updated_by) VALUES
 ('site_name', 'QL Truyện', 'Tên website', 1),
-('contact_email', 'admin@qltruyen.com', 'Email liên hệ', 1),
+('contact_email', 'admin@gmail.com', 'Email liên hệ', 1),
 ('max_projects_per_user', '50', 'Số dự án tối đa mỗi người dùng', 1),
 ('allow_registration', 'true', 'Cho phép đăng ký tài khoản mới', 1);
 
 -- =====================================================
 -- THÔNG TIN ĐĂNG NHẬP ADMIN MẶC ĐỊNH
 -- =====================================================
--- 📧 Email: admin@qltruyen.com
+-- 📧 Email: admin@gmail.com
 -- 🔑 Mật khẩu: Admin@123
 -- ⚠️ Hãy đổi mật khẩu ngay sau khi đăng nhập!
 -- =====================================================

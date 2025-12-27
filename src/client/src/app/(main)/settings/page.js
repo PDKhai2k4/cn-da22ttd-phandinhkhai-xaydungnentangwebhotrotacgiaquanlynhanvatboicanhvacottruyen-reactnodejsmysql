@@ -149,7 +149,8 @@ export default function SettingsPage() {
         { id: 'profile', label: t('profile'), icon: User },
         { id: 'password', label: t('changePassword'), icon: Lock },
         { id: 'preferences', label: t('preferences'), icon: Palette },
-        { id: 'danger', label: t('dangerZone'), icon: AlertTriangle }
+        // Ẩn tab Danger Zone cho admin
+        ...(user?.role !== 'admin' ? [{ id: 'danger', label: t('dangerZone'), icon: AlertTriangle }] : [])
     ];
 
     return (
@@ -360,8 +361,8 @@ export default function SettingsPage() {
                             </div>
                         )}
 
-                        {/* Danger Zone Tab */}
-                        {activeTab === 'danger' && (
+                        {/* Danger Zone Tab - Ẩn cho admin */}
+                        {activeTab === 'danger' && user?.role !== 'admin' && (
                             <div className="space-y-6 max-w-md">
                                 <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
                                     <div className="flex items-start space-x-3">

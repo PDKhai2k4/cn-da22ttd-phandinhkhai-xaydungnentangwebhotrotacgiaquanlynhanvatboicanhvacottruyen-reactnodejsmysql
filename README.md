@@ -84,7 +84,7 @@ cp src/.env.example src/.env
 4. Khởi chạy với Docker Compose:
 ```bash
 cd src
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 5. Truy cập ứng dụng:
@@ -162,19 +162,6 @@ npm run dev
 - Cài đặt giao diện (Light/Dark/System)
 - Phân quyền User/Admin
 
-## 🔧 Scripts Hữu Ích
-
-```bash
-# Setup database
-npm run setup
-
-# Reset mật khẩu admin
-npm run reset-password
-
-# Tính lại số từ các chương
-npm run recalculate-words
-```
-
 ## 📝 API Endpoints
 
 Backend API chạy tại `http://localhost:5000` với các endpoint chính:
@@ -194,6 +181,9 @@ Backend API chạy tại `http://localhost:5000` với các endpoint chính:
 **Phan Đình Khải**
 - MSSV: 110122089
 - Lớp: DA22TTD
+- Số điện thoại: 0374902422
+- Email: 110122089@st.tvu.edu.vn
+- Đơn vị: Đại học Trà Vinh
 
 ## 📄 License
 
